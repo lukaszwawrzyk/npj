@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Identifier {
     private final String value;
 
@@ -32,5 +35,9 @@ public class Identifier {
         return "Identifier{" +
                 "value='" + value + '\'' +
                 '}';
+    }
+
+    public List<String> getComponents() {
+        return Arrays.asList(value.split("\\."));
     }
 }

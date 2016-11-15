@@ -1,11 +1,17 @@
 package helpers
 
-import ast.{Program, Statement}
+import ast.{Identifier, Program, Statement}
 import interpreter._
-import interpreter.structures.Allocable
+import interpreter.structures.{Allocable, AllocableString, Tree}
+import org.scalatest.LoneElement
 
-trait InterpreterTestBase extends Test {
+trait InterpreterTestBase extends Test with LoneElement {
   trait Fixture {
+    def tree(left: Int = nullPointer, right: Int = nullPointer, data: Int = 0) = new Tree(left, right, data)
+    def string(value: String) = new AllocableString(value)
+    def id(value: Symbol) = new Identifier(value.name)
+    def ref(value: String) = new Identifier(value)
+
     val allocableNull = argThat((_: Allocable) == null)
     val nullString = argThat((_: String) == null)
 
@@ -30,6 +36,8 @@ trait InterpreterTestBase extends Test {
 
   trait ConcreteVariables {
     val variables = new MapVariables
+
+    def variable(key: Symbol) = variables.get(key.name)
   }
 
   trait ConcreteHeap { this: Fixture =>
@@ -43,7 +51,17 @@ trait InterpreterTestBase extends Test {
         pointers += (pointer -> obj)
         pointer
       }
+
+      override def put(pointer: Int, obj: Allocable): Unit = {
+        pointers += (pointer -> obj)
+      }
     }
+
+    def loneHeapValue = heapValues.loneElement
+
+    def heapPairs = heap.pointers.filter(_._1 != nullPointer).toSeq
+
+    def heapValues = heapPairs.map(_._2)
   }
 
   trait StubVariables {

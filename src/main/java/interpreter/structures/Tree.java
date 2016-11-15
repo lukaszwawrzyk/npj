@@ -1,12 +1,44 @@
 package interpreter.structures;
 
 public class Tree implements Allocable {
-    public int leftPointer;
-    public int rightPointer;
-    public int data;
+    private final int leftPointer;
+    private final int rightPointer;
+    private final int data;
+
+    private Tree() {
+        leftPointer = 0;
+        rightPointer = 0;
+        data = 0;
+    }
+
+    public Tree(int leftPointer, int rightPointer, int data) {
+        this.leftPointer = leftPointer;
+        this.rightPointer = rightPointer;
+        this.data = data;
+    }
 
     public static Tree uninitialized() {
         return new Tree();
+    }
+
+    public int getLeftPointer() {
+        return leftPointer;
+    }
+
+    public int getRightPointer() {
+        return rightPointer;
+    }
+
+    public Tree withLeftPointer(int leftPointer) {
+        return new Tree(leftPointer, rightPointer, data);
+    }
+
+    public Tree withRightPointer(int rightPointer) {
+        return new Tree(leftPointer, rightPointer, data);
+    }
+
+    public Tree withData(int data) {
+        return new Tree(leftPointer, rightPointer, data);
     }
 
     @Override
@@ -25,5 +57,14 @@ public class Tree implements Allocable {
     @Override
     public int hashCode() {
         return 31 * (31 * leftPointer + rightPointer) + data;
+    }
+
+    @Override
+    public String toString() {
+        return "Tree{" +
+                "leftPointer=" + leftPointer +
+                ", rightPointer=" + rightPointer +
+                ", data=" + data +
+                '}';
     }
 }

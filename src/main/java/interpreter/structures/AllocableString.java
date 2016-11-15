@@ -1,13 +1,9 @@
 package interpreter.structures;
 
-public class AllocalbeString implements Allocable {
+public class AllocableString implements Allocable {
     private String value;
 
-    public static AllocalbeString of(String value) {
-        return new AllocalbeString(value);
-    }
-
-    public AllocalbeString(String value) {
+    public AllocableString(String value) {
         this.value = value;
     }
 
@@ -20,7 +16,7 @@ public class AllocalbeString implements Allocable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AllocalbeString that = (AllocalbeString) o;
+        AllocableString that = (AllocableString) o;
 
         return value != null ? value.equals(that.value) : that.value == null;
 
