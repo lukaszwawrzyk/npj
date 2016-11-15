@@ -1,5 +1,6 @@
 package interpreter;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,5 +17,10 @@ public class MapVariables implements Variables {
 
     @Override public int get(String identifier) {
         return variables.get(identifier);
+    }
+
+    @Override
+    public Map<Object, Object> asMap() {
+        return Collections.unmodifiableMap(variables);
     }
 }

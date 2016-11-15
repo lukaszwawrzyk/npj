@@ -11,6 +11,5 @@ public class NPJ {
     }
 
     public static void heapAnalyze(Collection<Integer> typeTVariables, Collection<String> typeSVariables) {
-
     }
 }
