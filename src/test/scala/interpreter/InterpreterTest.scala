@@ -180,4 +180,53 @@ class InterpreterTest extends InterpreterTestBase {
     )
   }
 
+  it should "assign null to string variable" in new AllConcrete {
+    val instructions = Seq(
+      new StringVarDecl(id('str), "A"),
+      new NullAssignment(id('str))
+    )
+
+    runAll()
+
+    variable('str) shouldBe nullPointer
+    loneHeapValue shouldBe string("A")
+  }
+
+  it should "assign null to nested tree" in new AllConcrete {
+    val instructions = Seq(
+      new TreeVarDecl(id('t1)),
+      new TreeVarDecl(id('t2)),
+      new TreeVarDecl(id('t3)),
+      new TreeVarDecl(id('t4)),
+      new RefAssignment(ref("t1.f1"), id('t2)),
+      new RefAssignment(ref("t2.f1"), id('t3)),
+      new RefAssignment(ref("t3.f1"), id('t4)),
+      new NullAssignment(ref("t1.f1.f1.f1"))
+    )
+
+    runAll()
+
+    heapPairs should contain only (
+      1 -> tree(left = 2),
+      2 -> tree(left = 3),
+      3 -> tree(left = nullPointer),
+      4 -> tree()
+    )
+  }
+
+  it should "analyze heap and collect garbage" in new Fixture with StubHeap with ConcreteVariables {
+    val instructions = Seq(
+      new HeapAnalyze,
+      new Collect,
+      new HeapAnalyze
+    )
+
+    runAll()
+
+    inSequence {
+      (heap.analyze _).verify().once()
+      (heap.collect _).verify(variables).once()
+      (heap.analyze _).verify().once()
+    }
+  }
 }

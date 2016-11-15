@@ -1,6 +1,6 @@
 package ast;
 
-public class StringVarDecl implements Statement {
+public class StringVarDecl implements Statement, VarDecl {
     private final Identifier identifier;
     private final String value;
 

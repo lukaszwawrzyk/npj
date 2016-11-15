@@ -1,6 +1,6 @@
 package ast;
 
-public class StringConstAssignment implements Statement {
+public class StringConstAssignment implements Statement, Assignment {
     private final Identifier target;
     private final String value;
 

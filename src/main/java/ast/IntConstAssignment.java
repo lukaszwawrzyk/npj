@@ -1,6 +1,6 @@
 package ast;
 
-public class IntConstAssignment implements Statement {
+public class IntConstAssignment implements Statement, Assignment {
     private final Identifier target;
     private final int value;
 

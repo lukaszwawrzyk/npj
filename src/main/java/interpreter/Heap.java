@@ -6,4 +6,6 @@ public interface Heap {
     Allocable get(int pointer);
     int add(Allocable object);
     void put(int pointer, Allocable object);
+    void analyze();
+    void collect(Variables variables);
 }

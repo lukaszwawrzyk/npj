@@ -1,6 +1,6 @@
 package ast;
 
-public class TreeVarDecl implements Statement {
+public class TreeVarDecl implements Statement, VarDecl {
     private final Identifier identifier;
 
     public TreeVarDecl(Identifier identifier) {

@@ -1,6 +1,6 @@
 package ast;
 
-public class RefAssignment implements Statement {
+public class RefAssignment implements Statement, Assignment {
     private final Identifier target;
     private final Identifier source;
 

@@ -1,7 +1,7 @@
 package helpers
 
 import ast.{Identifier, Program, Statement}
-import interpreter._
+import interpreter.{Heap, _}
 import interpreter.structures.{Allocable, AllocableString, Tree}
 import org.scalatest.LoneElement
 
@@ -28,9 +28,7 @@ trait InterpreterTestBase extends Test with LoneElement {
     lazy val interpreter = new Interpreter(program, output, variables, heap)
 
     def runAll(): Unit = {
-      while (interpreter.hasNext) {
-        interpreter.runNext()
-      }
+      interpreter.runProgram()
     }
   }
 
@@ -41,7 +39,7 @@ trait InterpreterTestBase extends Test with LoneElement {
   }
 
   trait ConcreteHeap { this: Fixture =>
-    val heap = new Heap {
+    class MapHeap extends Heap {
       var pointers = Map[Int, Allocable](nullPointer -> null)
 
       override def get(pointer: Int): Allocable = pointers(pointer)
@@ -55,7 +53,13 @@ trait InterpreterTestBase extends Test with LoneElement {
       override def put(pointer: Int, obj: Allocable): Unit = {
         pointers += (pointer -> obj)
       }
+
+      override def analyze(): Unit = ()
+
+      override def collect(variables: Variables): Unit = ()
     }
+
+    val heap = new MapHeap
 
     def loneHeapValue = heapValues.loneElement
 

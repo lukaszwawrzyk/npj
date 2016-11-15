@@ -1,6 +1,6 @@
 package ast;
 
-public class NullAssignment implements Statement {
+public class NullAssignment implements Statement, Assignment {
     private final Identifier target;
 
     public NullAssignment(Identifier target) {

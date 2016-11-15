@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Identifier {
     private final String value;
+    private List<String> components;
 
     public Identifier(String value) {
         this.value = value;
@@ -37,7 +38,30 @@ public class Identifier {
                 '}';
     }
 
+    public String firstComponent() {
+        return getComponents().get(0);
+    }
+
+    public String lastComponent() {
+        return getComponents().get(getComponents().size() - 1);
+    }
+
+    public List<String> intermediateComponents() {
+        return getComponents().subList(1, getComponents().size() - 1);
+    }
+
+    public List<String> nestedComponents() {
+        return getComponents().subList(1, getComponents().size());
+    }
+
     public List<String> getComponents() {
-        return Arrays.asList(value.split("\\."));
+        if (components == null) {
+            components = Arrays.asList(value.split("\\."));
+        }
+        return components;
+    }
+
+    public boolean hasSingleComponent() {
+        return getComponents().size() == 1;
     }
 }
