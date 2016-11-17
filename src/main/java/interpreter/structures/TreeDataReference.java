@@ -1,20 +1,20 @@
 package interpreter.structures;
 
-public class TreeLeftPointerReference implements Reference {
+public class TreeDataReference implements Reference {
     private final Tree tree;
 
-    public TreeLeftPointerReference(Tree tree) {
+    public TreeDataReference(Tree tree) {
         this.tree = tree;
     }
 
     @Override
     public int getValue() {
-        return tree.getLeftPointer();
+        return tree.getData();
     }
 
     @Override
     public Allocable withValue(int pointer) {
-        return tree.withLeftPointer(pointer);
+        return tree.withData(pointer);
     }
 
 }

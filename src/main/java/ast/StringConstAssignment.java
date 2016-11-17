@@ -1,20 +1,26 @@
 package ast;
 
-public class StringConstAssignment implements Statement, Assignment {
-    private final Identifier target;
+import interpreter.Heap;
+import interpreter.Output;
+import interpreter.Variables;
+import interpreter.structures.AllocableString;
+
+public class StringConstAssignment extends Assignment {
     private final String value;
 
     public StringConstAssignment(Identifier target, String value) {
-        this.target = target;
+        super(target);
         this.value = value;
     }
 
-    public Identifier getTarget() {
-        return target;
+    @Override
+    public void run(Variables variables, Heap heap, Output output) {
+        int allocatedStringPointer = allocateString(heap);
+        assignValueToField(allocatedStringPointer, variables, heap);
     }
 
-    public String getValue() {
-        return value;
+    private int allocateString(Heap heap) {
+        return heap.add(new AllocableString(value));
     }
 
     @Override
@@ -25,7 +31,6 @@ public class StringConstAssignment implements Statement, Assignment {
         StringConstAssignment that = (StringConstAssignment) o;
 
         return target.equals(that.target) && value.equals(that.value);
-
     }
 
     @Override

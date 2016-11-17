@@ -12,4 +12,6 @@ public interface Allocable {
     int getNumberOfReferences();
 
     Reference getReferenceAt(int index);
+
+    Reference getReferenceToFieldNamed(String name);
 }

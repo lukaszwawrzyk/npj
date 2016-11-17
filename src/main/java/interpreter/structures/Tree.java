@@ -66,11 +66,26 @@ public class Tree implements Allocable {
                 return new TreeLeftPointerReference(this);
             case 1:
                 return new TreeRightPointerReference(this);
+            case 2:
+                return new TreeDataReference(this);
             default:
                 throw new IndexOutOfBoundsException();
         }
     }
 
+    @Override
+    public Reference getReferenceToFieldNamed(String name) {
+        switch (name) {
+            case "f1":
+                return getReferenceAt(0);
+            case "f2":
+                return getReferenceAt(1);
+            case "data":
+                return getReferenceAt(2);
+            default:
+                throw new IllegalArgumentException(name);
+        }
+    }
 
     public int getLeftPointer() {
         return leftPointer;

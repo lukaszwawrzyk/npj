@@ -1,14 +1,20 @@
 package ast;
 
-public class TreeVarDecl implements Statement, VarDecl {
-    private final Identifier identifier;
+import interpreter.Heap;
+import interpreter.Output;
+import interpreter.Variables;
+import interpreter.structures.Allocable;
+import interpreter.structures.Tree;
 
+public class TreeVarDecl extends VarDecl {
     public TreeVarDecl(Identifier identifier) {
-        this.identifier = identifier;
+        super(identifier);
     }
 
-    public Identifier getIdentifier() {
-        return identifier;
+    @Override
+    public void run(Variables variables, Heap heap, Output output) {
+        Allocable objectToAllocate = Tree.uninitialized();
+        declareVariable(objectToAllocate, variables, heap);
     }
 
     @Override
@@ -18,19 +24,18 @@ public class TreeVarDecl implements Statement, VarDecl {
 
         TreeVarDecl that = (TreeVarDecl) o;
 
-        return identifier.equals(that.identifier);
-
+        return target.equals(that.target);
     }
 
     @Override
     public int hashCode() {
-        return identifier.hashCode();
+        return target.hashCode();
     }
 
     @Override
     public String toString() {
         return "TreeVarDecl{" +
-                "identifier=" + identifier +
+                "target=" + target +
                 '}';
     }
 }

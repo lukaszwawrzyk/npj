@@ -11,35 +11,15 @@ public class Identifier {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Identifier that = (Identifier) o;
-
-        return value.equals(that.value);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "Identifier{" +
-                "value='" + value + '\'' +
-                '}';
-    }
-
     public String firstComponent() {
         return getComponents().get(0);
+    }
+
+    public List<String> getComponents() {
+        if (components == null) {
+            components = Arrays.asList(value.split("\\."));
+        }
+        return components;
     }
 
     public String lastComponent() {
@@ -54,14 +34,33 @@ public class Identifier {
         return getComponents().subList(1, getComponents().size());
     }
 
-    public List<String> getComponents() {
-        if (components == null) {
-            components = Arrays.asList(value.split("\\."));
-        }
-        return components;
-    }
-
     public boolean hasSingleComponent() {
         return getComponents().size() == 1;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Identifier that = (Identifier) o;
+
+        return value.equals(that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Identifier{" +
+                "value='" + value + '\'' +
+                '}';
     }
 }

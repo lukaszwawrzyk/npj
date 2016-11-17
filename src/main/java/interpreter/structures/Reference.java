@@ -1,6 +1,6 @@
 package interpreter.structures;
 
 public interface Reference {
-    int getPointer();
-    Allocable setPointer(int pointer);
+    int getValue();
+    Allocable withValue(int pointer);
 }

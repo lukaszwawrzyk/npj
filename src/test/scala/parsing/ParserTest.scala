@@ -21,7 +21,7 @@ class ParserTest extends ParserTestBase {
     new PrintConst("WORLD")
   )
 
-  it should "parse print reference" in parsing("Print identifier;")(new PrintRef(new Identifier("identifier")))
+  it should "parse print reference" in parsing("Print target;")(new PrintRef(new Identifier("target")))
 
   it should "parse heap analyze and collect" in parsing {
     """HeapAnalyze;

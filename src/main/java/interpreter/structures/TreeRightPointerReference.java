@@ -8,12 +8,12 @@ public class TreeRightPointerReference implements Reference {
     }
 
     @Override
-    public int getPointer() {
+    public int getValue() {
         return tree.getRightPointer();
     }
 
     @Override
-    public Allocable setPointer(int pointer) {
+    public Allocable withValue(int pointer) {
         return tree.withRightPointer(pointer);
     }
 

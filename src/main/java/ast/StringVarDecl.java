@@ -1,20 +1,27 @@
 package ast;
 
-public class StringVarDecl implements Statement, VarDecl {
-    private final Identifier identifier;
+import interpreter.Heap;
+import interpreter.Output;
+import interpreter.Variables;
+import interpreter.structures.Allocable;
+import interpreter.structures.AllocableString;
+
+public class StringVarDecl extends VarDecl {
     private final String value;
 
     public StringVarDecl(Identifier identifier, String value) {
-        this.identifier = identifier;
+        super(identifier);
         this.value = value;
     }
 
-    public Identifier getIdentifier() {
-        return identifier;
+    @Override
+    public void run(Variables variables, Heap heap, Output output) {
+        Allocable objectToAllocate = getStringOrNull();
+        declareVariable(objectToAllocate, variables, heap);
     }
 
-    public String getValue() {
-        return value;
+    private Allocable getStringOrNull() {
+        return value == null ? null : new AllocableString(value);
     }
 
     @Override
@@ -24,13 +31,12 @@ public class StringVarDecl implements Statement, VarDecl {
 
         StringVarDecl that = (StringVarDecl) o;
 
-        return identifier.equals(that.identifier) && (value != null ? value.equals(that.value) : that.value == null);
-
+        return target.equals(that.target) && (value != null ? value.equals(that.value) : that.value == null);
     }
 
     @Override
     public int hashCode() {
-        int result = identifier.hashCode();
+        int result = target.hashCode();
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
@@ -38,7 +44,7 @@ public class StringVarDecl implements Statement, VarDecl {
     @Override
     public String toString() {
         return "StringVarDecl{" +
-                "identifier=" + identifier +
+                "target=" + target +
                 ", value='" + value + '\'' +
                 '}';
     }

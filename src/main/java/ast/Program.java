@@ -1,17 +1,23 @@
 package ast;
 
+import interpreter.Heap;
+import interpreter.Output;
+import interpreter.Variables;
+
 import java.util.List;
 
-public class Program {
+public class Program implements Statement {
     private final List<Statement> statements;
-
 
     public Program(List<Statement> statements) {
         this.statements = statements;
     }
 
-    public List<Statement> getStatements() {
-        return statements;
+    @Override
+    public void run(Variables variables, Heap heap, Output output) {
+        for (Statement statement : statements) {
+            statement.run(variables, heap, output);
+        }
     }
 
     @Override
@@ -22,7 +28,6 @@ public class Program {
         Program program = (Program) o;
 
         return statements.equals(program.statements);
-
     }
 
     @Override

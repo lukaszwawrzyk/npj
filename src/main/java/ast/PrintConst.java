@@ -1,5 +1,9 @@
 package ast;
 
+import interpreter.Heap;
+import interpreter.Output;
+import interpreter.Variables;
+
 public class PrintConst implements Statement {
     private final String value;
 
@@ -7,8 +11,9 @@ public class PrintConst implements Statement {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
+    @Override
+    public void run(Variables variables, Heap heap, Output output) {
+        output.printLine(value);
     }
 
     @Override
@@ -19,7 +24,6 @@ public class PrintConst implements Statement {
         PrintConst that = (PrintConst) o;
 
         return value.equals(that.value);
-
     }
 
     @Override

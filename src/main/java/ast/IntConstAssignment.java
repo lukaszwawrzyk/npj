@@ -1,20 +1,20 @@
 package ast;
 
-public class IntConstAssignment implements Statement, Assignment {
-    private final Identifier target;
+import interpreter.Heap;
+import interpreter.Output;
+import interpreter.Variables;
+
+public class IntConstAssignment extends Assignment {
     private final int value;
 
     public IntConstAssignment(Identifier target, int value) {
-        this.target = target;
+        super(target);
         this.value = value;
     }
 
-    public Identifier getTarget() {
-        return target;
-    }
-
-    public int getValue() {
-        return value;
+    @Override
+    public void run(Variables variables, Heap heap, Output output) {
+        assignValueToField(value, variables, heap);
     }
 
     @Override
@@ -25,7 +25,6 @@ public class IntConstAssignment implements Statement, Assignment {
         IntConstAssignment that = (IntConstAssignment) o;
 
         return value == that.value && target.equals(that.target);
-
     }
 
     @Override

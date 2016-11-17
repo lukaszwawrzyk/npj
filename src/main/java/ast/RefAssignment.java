@@ -1,20 +1,28 @@
 package ast;
 
-public class RefAssignment implements Statement, Assignment {
-    private final Identifier target;
+import interpreter.Heap;
+import interpreter.Output;
+import interpreter.Variables;
+
+import java.util.List;
+
+public class RefAssignment extends Assignment {
     private final Identifier source;
 
     public RefAssignment(Identifier target, Identifier sourceReference) {
-        this.target = target;
+        super(target);
         this.source = sourceReference;
     }
 
-    public Identifier getTarget() {
-        return target;
+    @Override
+    public void run(Variables variables, Heap heap, Output output) {
+        int pointerToAssign = resolvePointerToAssign(variables, heap);
+        assignValueToField(pointerToAssign, variables, heap);
     }
 
-    public Identifier getSource() {
-        return source;
+    private int resolvePointerToAssign(Variables variables, Heap heap) {
+        List<String> components = source.nestedComponents();
+        return navigateTreePointers(source, components, variables, heap);
     }
 
     @Override
@@ -26,7 +34,6 @@ public class RefAssignment implements Statement, Assignment {
 
         return target.equals(that.target) &&
                 source.equals(that.source);
-
     }
 
     @Override

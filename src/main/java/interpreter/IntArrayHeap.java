@@ -76,8 +76,8 @@ public class IntArrayHeap {
             Allocable object = get(scanPtr);
             for (int i = 0; i < object.getNumberOfReferences(); i++) {
                 Reference reference = object.getReferenceAt(i);
-                int copiedObjectPointer = copy(reference.getPointer());
-                object = reference.setPointer(copiedObjectPointer);
+                int copiedObjectPointer = copy(reference.getValue());
+                object = reference.withValue(copiedObjectPointer);
             }
             update(scanPtr, object);
             scanPtr += object.size();

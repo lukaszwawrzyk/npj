@@ -1,14 +1,20 @@
 package ast;
 
-public class NullAssignment implements Statement, Assignment {
-    private final Identifier target;
+import interpreter.Heap;
+import interpreter.Output;
+import interpreter.Variables;
+
+public class NullAssignment extends Assignment {
+    private static final int NULL_POINTER = 0;
 
     public NullAssignment(Identifier target) {
-        this.target = target;
+        super(target);
     }
 
-    public Identifier getTarget() {
-        return target;
+
+    @Override
+    public void run(Variables variables, Heap heap, Output output) {
+        assignValueToField(NULL_POINTER, variables, heap);
     }
 
     @Override
@@ -19,7 +25,6 @@ public class NullAssignment implements Statement, Assignment {
         NullAssignment that = (NullAssignment) o;
 
         return target.equals(that.target);
-
     }
 
     @Override
