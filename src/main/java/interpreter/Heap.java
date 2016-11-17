@@ -7,5 +7,5 @@ public interface Heap {
     int add(Allocable object);
     void put(int pointer, Allocable object);
     void analyze();
-    void collect(Variables variables);
+    void collect();
 }

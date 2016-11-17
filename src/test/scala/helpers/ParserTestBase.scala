@@ -1,17 +1,10 @@
 package helpers
 
-import java.util
-
 import ast.{Program, Statement}
-import org.scalamock.scalatest.MockFactory
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.FlatSpecLike
 import parsing.Parser
 
-trait Test extends FlatSpec with Matchers with MockFactory {
-  protected def list[A](elems: A*) = util.Arrays.asList(elems: _*)
-}
-
-trait ParserTestBase extends Test {
+trait ParserTestBase extends Test with FlatSpecLike {
   protected def parsing(text: String, expected: Program): Unit = {
     val parser = new Parser
     val result = parser.parse(text)

@@ -1,14 +1,15 @@
 package interpreter;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class AnalysisResult {
     private final Collection<String> strings;
     private final Collection<Integer> treeData;
 
-    public AnalysisResult(Collection<String> strings, Collection<Integer> treeData) {
-        this.strings = strings;
-        this.treeData = treeData;
+    public AnalysisResult() {
+        this.strings = new ArrayList<>();
+        this.treeData = new ArrayList<>();
     }
 
     public Collection<String> getStrings() {

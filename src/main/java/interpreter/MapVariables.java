@@ -1,7 +1,8 @@
 package interpreter;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MapVariables implements Variables {
@@ -20,7 +21,12 @@ public class MapVariables implements Variables {
     }
 
     @Override
-    public Map<Object, Object> asMap() {
-        return Collections.unmodifiableMap(variables);
+    public List<Variable> getAll() {
+        List<Variable> list = new ArrayList<>();
+        for (Map.Entry<String, Integer> pair : variables.entrySet()) {
+            Variable variable = new Variable(pair.getKey(), pair.getValue());
+            list.add(variable);
+        }
+        return list;
     }
 }

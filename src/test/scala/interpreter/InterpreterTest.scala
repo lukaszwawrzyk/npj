@@ -1,7 +1,7 @@
 package interpreter
 
 import ast._
-import helpers.InterpreterTestBase
+import helpers.{ConcreteVariables, InterpreterTestBase}
 import interpreter.structures.Tree
 
 class InterpreterTest extends InterpreterTestBase {
@@ -33,7 +33,7 @@ class InterpreterTest extends InterpreterTestBase {
     }
   }
 
-  it should "add declared tree variable to variables and allocate it on heap" in new AllStubbed {
+  it should "allocate declared tree variable to variables and allocate it on heap" in new AllStubbed {
     val instructions = Seq(new TreeVarDecl(id('myTree)))
     (heap.add _).when(Tree.uninitialized).returns(pointer)
 
@@ -42,7 +42,7 @@ class InterpreterTest extends InterpreterTestBase {
     (variables.put _).verify("myTree", pointer)
   }
 
-  it should "add declared string variable to variables and allocate it on heap" in new AllStubbed {
+  it should "allocate declared string variable to variables and allocate it on heap" in new AllStubbed {
     val instructions = Seq(new StringVarDecl(id('myString), "CONTENT"))
     (heap.add _).when(string("CONTENT")).returns(pointer)
 
@@ -51,7 +51,7 @@ class InterpreterTest extends InterpreterTestBase {
     (variables.put _).verify("myString", pointer)
   }
 
-  it should "add null string variable to variables" in new AllStubbed {
+  it should "allocate null string variable to variables" in new AllStubbed {
     val instructions = Seq(new StringVarDecl(id('myNullString), null))
     (heap.add _).when(allocableNull).returns(nullPointer)
 
@@ -225,7 +225,7 @@ class InterpreterTest extends InterpreterTestBase {
 
     inSequence {
       (heap.analyze _).verify().once()
-      (heap.collect _).verify(variables).once()
+      (heap.collect _).verify().once()
       (heap.analyze _).verify().once()
     }
   }

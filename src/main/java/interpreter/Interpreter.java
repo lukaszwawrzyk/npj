@@ -193,6 +193,7 @@ public class Interpreter {
     }
 
     private void collect() {
-        heap.collect(variables);
+        heap.collect();
     }
+
 }

@@ -1,9 +1,10 @@
 package interpreter;
 
-import java.util.Map;
+import java.util.List;
 
 public interface Variables {
     void put(String identifier, int pointer);
     int get(String identifier);
-    Map<Object, Object> asMap();
+    List<Variable> getAll();
 }
+

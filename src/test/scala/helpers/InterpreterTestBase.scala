@@ -1,14 +1,13 @@
 package helpers
 
 import ast.{Identifier, Program, Statement}
+import interpreter.structures.Allocable
 import interpreter.{Heap, _}
-import interpreter.structures.{Allocable, AllocableString, Tree}
-import org.scalatest.LoneElement
+import org.scalatest.{FlatSpecLike, LoneElement}
 
-trait InterpreterTestBase extends Test with LoneElement {
-  trait Fixture {
-    def tree(left: Int = nullPointer, right: Int = nullPointer, data: Int = 0) = new Tree(left, right, data)
-    def string(value: String) = new AllocableString(value)
+
+trait InterpreterTestBase extends Test with FlatSpecLike with LoneElement {
+  trait Fixture extends AllocableFactories {
     def id(value: Symbol) = new Identifier(value.name)
     def ref(value: String) = new Identifier(value)
 
@@ -16,7 +15,6 @@ trait InterpreterTestBase extends Test with LoneElement {
     val nullString = argThat((_: String) == null)
 
     val pointer = 123
-    val nullPointer = 0
 
     import scala.collection.JavaConverters._
     val output = stub[Output]
@@ -30,12 +28,6 @@ trait InterpreterTestBase extends Test with LoneElement {
     def runAll(): Unit = {
       interpreter.runProgram()
     }
-  }
-
-  trait ConcreteVariables {
-    val variables = new MapVariables
-
-    def variable(key: Symbol) = variables.get(key.name)
   }
 
   trait ConcreteHeap { this: Fixture =>
@@ -56,7 +48,7 @@ trait InterpreterTestBase extends Test with LoneElement {
 
       override def analyze(): Unit = ()
 
-      override def collect(variables: Variables): Unit = ()
+      override def collect(): Unit = ()
     }
 
     val heap = new MapHeap

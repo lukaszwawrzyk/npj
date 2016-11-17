@@ -1,16 +1,13 @@
 import interpreter.AnalysisResult;
 import interpreter.Heap;
 import interpreter.IntArrayHeap;
-import interpreter.Variables;
 import interpreter.structures.Allocable;
 
 public class NPJHeap implements Heap {
-    private final IntArrayHeap heap;
-    private final Collector collector;
+    private IntArrayHeap heap;
 
-    public NPJHeap(IntArrayHeap heap, Collector collector) {
+    public NPJHeap(IntArrayHeap heap) {
         this.heap = heap;
-        this.collector = collector;
     }
 
     @Override
@@ -20,12 +17,12 @@ public class NPJHeap implements Heap {
 
     @Override
     public int add(Allocable object) {
-        return heap.add(object);
+        return heap.allocate(object);
     }
 
     @Override
     public void put(int pointer, Allocable object) {
-        heap.put(pointer, object);
+        heap.update(pointer, object);
     }
 
     @Override
@@ -35,7 +32,7 @@ public class NPJHeap implements Heap {
     }
 
     @Override
-    public void collect(Variables variables) {
-        NPJ.collect(heap.getRawHeap(), collector, variables.asMap());
+    public void collect() {
+        NPJ.collect(null, new NPJCollectorAdapter(heap), null);
     }
 }
