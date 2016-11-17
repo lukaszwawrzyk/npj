@@ -24,8 +24,7 @@ public class Variable {
 
         Variable variable = (Variable) o;
 
-        if (pointer != variable.pointer) return false;
-        return name.equals(variable.name);
+        return pointer == variable.pointer && name.equals(variable.name);
 
     }
 

@@ -10,7 +10,9 @@ import scala.language.implicitConversions
 trait HeapTestBase extends Test with WordSpecLike  with Inside {
 
   trait Fixture extends ConcreteVariables with AllocableFactories {
-    val heap = new IntArrayHeap(40, variables)
+    def allocableHeapSpace = 50
+    def heapSize = allocableHeapSpace * 2 + 1
+    lazy val heap = new IntArrayHeap(heapSize, variables)
 
     def heapShouldContainOnly(expectedInts: Int*)(expectedStrings: String*) = {
       val analyzed = heap.analyze

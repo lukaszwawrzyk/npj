@@ -16,7 +16,6 @@ trait ParserTestBase extends Test with FlatSpecLike {
     parsing(text, new Program(list(statements: _*)))
   }
 
-
   protected def parsingFailed(text: String)(expected: String) = {
     val parser = new Parser
     val result = parser.parse(text)

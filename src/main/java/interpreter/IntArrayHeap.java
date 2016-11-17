@@ -8,6 +8,7 @@ import interpreter.structures.Tree;
 public class IntArrayHeap {
     private final int[] heap;
     private final Variables variables;
+    private final int heapHalveLength;
     private int allocPtr;
     private int toSpace;
     private int fromSpace;
@@ -15,6 +16,7 @@ public class IntArrayHeap {
     public IntArrayHeap(int heapSize, Variables variables) {
         this.variables = variables;
         this.heap = new int[heapSize];
+        this.heapHalveLength = (heapSize - 1) / 2;
         this.fromSpace = 1;
         this.toSpace = (heapSize-1) / 2 + 1;
         this.allocPtr = fromSpace;
@@ -34,6 +36,12 @@ public class IntArrayHeap {
         if (object == null) {
             return 0;
         } else {
+            if (allocPtr + object.size() > fromSpace + heapHalveLength) {
+                collect();
+                if (allocPtr + object.size() > fromSpace + heapHalveLength) {
+                    throw new OutOfMemoryError();
+                }
+            }
             object.putInto(heap, allocPtr);
             int allocatedObjectIndex = allocPtr;
             allocPtr += object.size();

@@ -4,9 +4,7 @@ import helpers.HeapTestBase
 
 class IntArrayHeapTest extends HeapTestBase {
   "IntArrayHeap" when {
-
     "allocating objects" should {
-
       "retrieve string object back" in new Fixture {
         private val stringObject = string("ABCD")
         val pointer = heap.allocate(stringObject)
@@ -47,6 +45,35 @@ class IntArrayHeapTest extends HeapTestBase {
         heap.get(pointerToFirstTree).asTree shouldBe tree1
         heap.get(pointerToString).asString shouldBe abcdString
         heap.get(pointerToSecondTree).asTree shouldBe tree2
+      }
+
+      "throw out of memory if requested object cannot fit in heap" in new Fixture {
+        override val allocableHeapSpace = 4
+        val x = allocable(size = 5)
+
+        an [OutOfMemoryError] should be thrownBy heap.allocate(x)
+      }
+
+      "collect garbage to make space to allocate new object" in new Fixture {
+        override val allocableHeapSpace = 10
+        val x = allocable(size = 4)
+        val y = allocable(size = 3)
+
+        heap.allocate(x)
+        heap.allocate(x)
+
+        noException should be thrownBy heap.allocate(y)
+      }
+
+      "throw out of memory if requested object cannot fit after collecting garbage" in new Fixture {
+        override val allocableHeapSpace = 10
+        val x = allocable(size = 4)
+        val tooBig = allocable(size = 7)
+
+        variables.put('x, heap.allocate(x))
+        heap.allocate(x)
+
+        an [OutOfMemoryError] should be thrownBy heap.allocate(tooBig)
       }
     }
 
