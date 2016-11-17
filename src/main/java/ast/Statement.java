@@ -1,4 +1,3 @@
 package ast;
 
-public interface Statement {
-}
+public interface Statement { }

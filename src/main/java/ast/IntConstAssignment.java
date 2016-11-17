@@ -24,8 +24,7 @@ public class IntConstAssignment implements Statement, Assignment {
 
         IntConstAssignment that = (IntConstAssignment) o;
 
-        if (value != that.value) return false;
-        return target.equals(that.target);
+        return value == that.value && target.equals(that.target);
 
     }
 

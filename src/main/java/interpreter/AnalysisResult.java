@@ -27,8 +27,7 @@ public class AnalysisResult {
 
         AnalysisResult that = (AnalysisResult) o;
 
-        if (!strings.equals(that.strings)) return false;
-        return treeData.equals(that.treeData);
+        return strings.equals(that.strings) && treeData.equals(that.treeData);
 
     }
 

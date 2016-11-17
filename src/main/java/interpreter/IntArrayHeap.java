@@ -42,7 +42,7 @@ public class IntArrayHeap {
                     throw new OutOfMemoryError();
                 }
             }
-            object.putInto(heap, allocPtr);
+            object.copyToHeap(heap, allocPtr);
             int allocatedObjectIndex = allocPtr;
             allocPtr += object.size();
             return allocatedObjectIndex;
@@ -50,7 +50,7 @@ public class IntArrayHeap {
     }
 
     public void update(int pointer, Allocable object) {
-        object.putInto(heap, pointer);
+        object.copyToHeap(heap, pointer);
     }
 
     public AnalysisResult analyze() {
@@ -75,7 +75,7 @@ public class IntArrayHeap {
         while (scanPtr < allocPtr) {
             Allocable object = get(scanPtr);
             for (int i = 0; i < object.getNumberOfReferences(); i++) {
-                Reference reference = object.getReference(i);
+                Reference reference = object.getReferenceAt(i);
                 int copiedObjectPointer = copy(reference.getPointer());
                 object = reference.setPointer(copiedObjectPointer);
             }

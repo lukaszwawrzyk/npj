@@ -4,7 +4,7 @@ import interpreter.IntArrayHeap;
 import interpreter.structures.Allocable;
 
 public class NPJHeap implements Heap {
-    private IntArrayHeap heap;
+    private final IntArrayHeap heap;
 
     public NPJHeap(IntArrayHeap heap) {
         this.heap = heap;

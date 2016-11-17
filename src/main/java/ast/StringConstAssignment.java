@@ -24,8 +24,7 @@ public class StringConstAssignment implements Statement, Assignment {
 
         StringConstAssignment that = (StringConstAssignment) o;
 
-        if (!target.equals(that.target)) return false;
-        return value.equals(that.value);
+        return target.equals(that.target) && value.equals(that.value);
 
     }
 

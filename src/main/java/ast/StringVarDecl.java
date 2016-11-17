@@ -24,8 +24,7 @@ public class StringVarDecl implements Statement, VarDecl {
 
         StringVarDecl that = (StringVarDecl) o;
 
-        if (!identifier.equals(that.identifier)) return false;
-        return value != null ? value.equals(that.value) : that.value == null;
+        return identifier.equals(that.identifier) && (value != null ? value.equals(that.value) : that.value == null);
 
     }
 
