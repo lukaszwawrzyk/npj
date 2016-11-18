@@ -1,9 +1,9 @@
 package interpreter.structures;
 
 public class TreeRightPointerReference implements Reference {
-    private final Tree tree;
+    private final AllocableTree tree;
 
-    public TreeRightPointerReference(Tree tree) {
+    public TreeRightPointerReference(AllocableTree tree) {
         this.tree = tree;
     }
 

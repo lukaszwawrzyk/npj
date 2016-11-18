@@ -1,9 +1,9 @@
 package interpreter.structures;
 
 public class TreeDataReference implements Reference {
-    private final Tree tree;
+    private final AllocableTree tree;
 
-    public TreeDataReference(Tree tree) {
+    public TreeDataReference(AllocableTree tree) {
         this.tree = tree;
     }
 

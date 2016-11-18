@@ -2,7 +2,7 @@ package interpreter
 
 import ast._
 import helpers.{ConcreteVariables, InterpreterTestBase}
-import interpreter.structures.Tree
+import interpreter.structures.AllocableTree
 
 class InterpreterTest extends InterpreterTestBase {
   behavior of "Interpreter"
@@ -35,7 +35,7 @@ class InterpreterTest extends InterpreterTestBase {
 
   it should "allocate declared tree variable to variables and allocate it on heap" in new AllStubbed {
     val instructions = Seq(new TreeVarDecl(id('myTree)))
-    (heap.add _).when(Tree.uninitialized).returns(pointer)
+    (heap.add _).when(AllocableTree.uninitialized).returns(pointer)
 
     runAll()
 
@@ -91,7 +91,7 @@ class InterpreterTest extends InterpreterTestBase {
     runAll()
 
     variables.get("myTree") shouldBe nullPointer
-    loneHeapValue shouldBe Tree.uninitialized
+    loneHeapValue shouldBe AllocableTree.uninitialized
   }
 
   it should "assign int constant to tree data" in new AllConcrete {

@@ -22,7 +22,7 @@ public class NPJHeap implements Heap {
 
     @Override
     public void put(int pointer, Allocable object) {
-        heap.update(pointer, object);
+        heap.put(pointer, object);
     }
 
     @Override

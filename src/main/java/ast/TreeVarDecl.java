@@ -4,7 +4,7 @@ import interpreter.Heap;
 import interpreter.Output;
 import interpreter.Variables;
 import interpreter.structures.Allocable;
-import interpreter.structures.Tree;
+import interpreter.structures.AllocableTree;
 
 public class TreeVarDecl extends VarDecl {
     public TreeVarDecl(Identifier identifier) {
@@ -13,7 +13,7 @@ public class TreeVarDecl extends VarDecl {
 
     @Override
     public void run(Variables variables, Heap heap, Output output) {
-        Allocable objectToAllocate = Tree.uninitialized();
+        Allocable objectToAllocate = AllocableTree.uninitialized();
         declareVariable(objectToAllocate, variables, heap);
     }
 

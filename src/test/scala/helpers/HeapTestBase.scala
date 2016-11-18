@@ -1,7 +1,7 @@
 package helpers
 
 import interpreter.IntArrayHeap
-import interpreter.structures.{Allocable, AllocableString, Tree}
+import interpreter.structures.{Allocable, AllocableString, AllocableTree}
 import org.scalatest.{Inside, WordSpecLike}
 
 import scala.collection.JavaConverters._
@@ -33,7 +33,7 @@ trait HeapTestBase extends Test with WordSpecLike  with Inside {
   }
 
   implicit class AllocableOps(val allocable: Allocable) {
-    def asTree: Tree = allocable.asInstanceOf[Tree]
+    def asTree: AllocableTree = allocable.asInstanceOf[AllocableTree]
     def asString: AllocableString = allocable.asInstanceOf[AllocableString]
   }
 

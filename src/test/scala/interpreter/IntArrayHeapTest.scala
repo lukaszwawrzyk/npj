@@ -85,7 +85,7 @@ class IntArrayHeapTest extends HeapTestBase {
         val pointerToSecondTree = heap.allocate(tree2)
 
         val updatedTree = tree(left = 6, right = 7, data = 8)
-        heap.update(pointerToSecondTree, updatedTree)
+        heap.put(pointerToSecondTree, updatedTree)
 
         heap.get(pointerToFirstTree).asTree shouldBe tree1
         heap.get(pointerToSecondTree).asTree shouldBe updatedTree

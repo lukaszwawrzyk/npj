@@ -2,35 +2,35 @@ package interpreter.structures;
 
 import interpreter.AnalysisResult;
 
-public class Tree implements Allocable {
+public class AllocableTree implements Allocable {
     private static final int HEADER = 0xcafebabe;
 
     private final int leftPointer;
     private final int rightPointer;
     private final int data;
 
-    private Tree() {
+    private AllocableTree() {
         leftPointer = 0;
         rightPointer = 0;
         data = 0;
     }
 
-    public Tree(int leftPointer, int rightPointer, int data) {
+    public AllocableTree(int leftPointer, int rightPointer, int data) {
         this.leftPointer = leftPointer;
         this.rightPointer = rightPointer;
         this.data = data;
     }
 
-    public static Tree uninitialized() {
-        return new Tree();
+    public static AllocableTree uninitialized() {
+        return new AllocableTree();
     }
 
-    public static Tree tryLoadFromHeap(int[] heap, int pointer) {
+    public static AllocableTree tryLoadFromHeap(int[] heap, int pointer) {
         if (heap[pointer] == HEADER) {
             int leftPointer = heap[pointer + 1];
             int rightPointer = heap[pointer + 2];
             int data = heap[pointer + 3];
-            return new Tree(leftPointer, rightPointer, data);
+            return new AllocableTree(leftPointer, rightPointer, data);
         } else {
             return null;
         }
@@ -99,16 +99,16 @@ public class Tree implements Allocable {
         return data;
     }
 
-    public Tree withLeftPointer(int leftPointer) {
-        return new Tree(leftPointer, rightPointer, data);
+    public AllocableTree withLeftPointer(int leftPointer) {
+        return new AllocableTree(leftPointer, rightPointer, data);
     }
 
-    public Tree withRightPointer(int rightPointer) {
-        return new Tree(leftPointer, rightPointer, data);
+    public AllocableTree withRightPointer(int rightPointer) {
+        return new AllocableTree(leftPointer, rightPointer, data);
     }
 
-    public Tree withData(int data) {
-        return new Tree(leftPointer, rightPointer, data);
+    public AllocableTree withData(int data) {
+        return new AllocableTree(leftPointer, rightPointer, data);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class Tree implements Allocable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Tree tree = (Tree) o;
+        AllocableTree tree = (AllocableTree) o;
 
         return leftPointer == tree.leftPointer &&
                 rightPointer == tree.rightPointer &&
@@ -130,7 +130,7 @@ public class Tree implements Allocable {
 
     @Override
     public String toString() {
-        return "Tree{" +
+        return "AllocableTree{" +
                 "leftPointer=" + leftPointer +
                 ", rightPointer=" + rightPointer +
                 ", data=" + data +
