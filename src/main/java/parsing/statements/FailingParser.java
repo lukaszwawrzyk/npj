@@ -13,6 +13,6 @@ public class FailingParser extends StatementParser {
 
     @Override
     protected Statement createStatement(Matcher matcher) {
-        throw new ParseException(":(");
+        throw new ParseException("Failed to parse: " + matcher.group());
     }
 }

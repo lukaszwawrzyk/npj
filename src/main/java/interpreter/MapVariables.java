@@ -9,7 +9,7 @@ public class MapVariables implements Variables {
     private final Map<String, Integer> variables;
 
     public MapVariables() {
-        this.variables = new HashMap<>();
+        this.variables = new HashMap<String, Integer>();
     }
 
     @Override public void put(String identifier, int pointer) {
@@ -22,7 +22,7 @@ public class MapVariables implements Variables {
 
     @Override
     public List<Variable> getAll() {
-        List<Variable> list = new ArrayList<>();
+        List<Variable> list = new ArrayList<Variable>();
         for (Map.Entry<String, Integer> pair : variables.entrySet()) {
             Variable variable = new Variable(pair.getKey(), pair.getValue());
             list.add(variable);

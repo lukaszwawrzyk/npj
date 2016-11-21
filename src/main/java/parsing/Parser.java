@@ -40,7 +40,7 @@ public class Parser {
     }
 
     private List<Statement> parseStatements(List<String> statementLines) {
-        List<Statement> statements = new ArrayList<>();
+        List<Statement> statements = new ArrayList<Statement>();
         for (String statement : statementLines) {
             Statement parsedStatement = parseStatement(statement);
             statements.add(parsedStatement);
@@ -54,7 +54,7 @@ public class Parser {
 
     private List<String> getStatementLines(String text) {
         String[] split = text.split(";");
-        List<String> statements = new ArrayList<>();
+        List<String> statements = new ArrayList<String>();
         for (String line : split) {
             String trimmedLine = line.trim();
             if (!trimmedLine.isEmpty()) {

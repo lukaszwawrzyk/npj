@@ -4,11 +4,9 @@ import interpreter.MapVariables;
 import parsing.ParseResult;
 import parsing.Parser;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.StringJoiner;
+import java.util.Scanner;
 
 public class Interpreter {
     private final String programFile;
@@ -56,8 +54,11 @@ public class Interpreter {
     }
 
     private String readProgramToString() throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get(programFile));
-        return joinLines(lines);
+        Scanner scanner = new Scanner(new File(programFile));
+        scanner.useDelimiter("\\Z");
+        String content = scanner.next();
+        scanner.close();
+        return content;
     }
 
     private Program parseProgram(String code) {
@@ -77,13 +78,4 @@ public class Interpreter {
         NPJHeap heap = new NPJHeap(intHeap);
         return new interpreter.Interpreter(program, output, variables, heap);
     }
-
-    private String joinLines(List<String> lines) {
-        StringJoiner joiner = new StringJoiner("\n");
-        for (String line : lines) {
-            joiner.add(line);
-        }
-        return joiner.toString();
-    }
-
 }

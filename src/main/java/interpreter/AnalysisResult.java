@@ -8,8 +8,8 @@ public class AnalysisResult {
     private final Collection<Integer> treeData;
 
     public AnalysisResult() {
-        this.strings = new ArrayList<>();
-        this.treeData = new ArrayList<>();
+        this.strings = new ArrayList<String>();
+        this.treeData = new ArrayList<Integer>();
     }
 
     public Collection<String> getStrings() {

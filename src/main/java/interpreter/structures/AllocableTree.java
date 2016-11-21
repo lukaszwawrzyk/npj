@@ -75,15 +75,14 @@ public class AllocableTree implements Allocable {
 
     @Override
     public Reference getReferenceToFieldNamed(String name) {
-        switch (name) {
-            case "f1":
-                return getReferenceAt(0);
-            case "f2":
-                return getReferenceAt(1);
-            case "data":
-                return getReferenceAt(2);
-            default:
-                throw new IllegalArgumentException(name);
+        if ("f1".equals(name)) {
+            return getReferenceAt(0);
+        } else if ("f2".equals(name)) {
+            return getReferenceAt(1);
+        } else if ("data".equals(name)) {
+            return getReferenceAt(2);
+        } else {
+            throw new IllegalArgumentException(name);
         }
     }
 
